@@ -4,6 +4,12 @@ const canvas = document.getElementById('canvas');
 const photo = document.getElementById('photo');
 const cameraContainer = document.getElementById('cameraContainer');
 const mapContainer = document.getElementById('mapContainer');
+const captureBtn = document.getElementById('captureBtn');
+const retakeBtn = document.getElementById('retakeBtn');
+const savePhotoBtn = document.getElementById('savePhotoBtn');
+const cancelCameraBtn = document.getElementById('cancelCameraBtn');
+const saveTimeBtn = document.getElementById('saveTimeBtn');
+const cancelMapBtn = document.getElementById('cancelMapBtn');
 
 // ฟังก์ชันเริ่มต้นกล้อง
 function startCamera() {
@@ -34,6 +40,11 @@ function capturePhoto() {
     capturedImage = canvas.toDataURL('image/png');
     photo.src = capturedImage;
     photo.style.display = 'block';
+
+    // ซ่อนปุ่มถ่ายรูป และแสดงปุ่มถ่ายรูปใหม่และบันทึกรูป
+    captureBtn.classList.add('hidden');
+    retakeBtn.classList.remove('hidden');
+    savePhotoBtn.classList.remove('hidden');
 }
 
 // ฟังก์ชันอัพเดตแผนที่ด้วยตำแหน่งของผู้ใช้
@@ -110,21 +121,39 @@ function handleClock(action) {
     mapContainer.classList.add('hidden');
     startCamera();
 
-    document.getElementById('captureBtn').addEventListener('click', capturePhoto);
-    document.getElementById('retakeBtn').addEventListener('click', capturePhoto);
-    document.getElementById('savePhotoBtn').addEventListener('click', () => {
+    // ตั้งค่าปุ่มเมื่อเริ่มเปิดกล้อง
+    captureBtn.classList.remove('hidden');
+    retakeBtn.classList.add('hidden');
+    savePhotoBtn.classList.add('hidden');
+
+    // กดถ่ายรูป
+    captureBtn.addEventListener('click', capturePhoto);
+
+    // กดถ่ายรูปใหม่
+    retakeBtn.addEventListener('click', () => {
+        // กลับไปถ่ายรูปใหม่
+        photo.style.display = 'none';
+        captureBtn.classList.remove('hidden');
+        retakeBtn.classList.add('hidden');
+        savePhotoBtn.classList.add('hidden');
+    });
+
+    // กดบันทึกรูป
+    savePhotoBtn.addEventListener('click', () => {
         stopCamera();
         cameraContainer.classList.add('hidden');
         mapContainer.classList.remove('hidden');
         startTracking();
     });
 
-    document.getElementById('cancelCameraBtn').addEventListener('click', () => {
+    // ยกเลิกการถ่ายรูป
+    cancelCameraBtn.addEventListener('click', () => {
         stopCamera();
         cameraContainer.classList.add('hidden');
     });
 
-    document.getElementById('saveTimeBtn').addEventListener('click', () => {
+    // กดบันทึกเวลา
+    saveTimeBtn.addEventListener('click', () => {
         stopTracking();
         const data = {
             action: action,
@@ -136,7 +165,8 @@ function handleClock(action) {
         saveData(data);
     });
 
-    document.getElementById('cancelMapBtn').addEventListener('click', () => {
+    // ยกเลิกการบันทึกเวลา
+    cancelMapBtn.addEventListener('click', () => {
         stopTracking();
         mapContainer.classList.add('hidden');
     });
