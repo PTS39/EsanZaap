@@ -1,4 +1,30 @@
 let userLocation, watchId; // ประกาศตัวแปรตำแหน่งผู้ใช้ และตัวแปรสำหรับการติดตามตำแหน่ง
+const video = document.getElementById('video'); // ตัวแปรสำหรับวิดีโอจากกล้อง
+const canvas = document.getElementById('canvas'); // ตัวแปรสำหรับแคนวาส
+const photo = document.getElementById('photo'); // ตัวแปรสำหรับแสดงรูปถ่าย
+
+// ฟังก์ชันเริ่มต้นกล้อง
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true }) // ขอสิทธิ์ใช้กล้อง
+        .then(stream => {
+            video.srcObject = stream; // แสดงภาพจากกล้องบน video element
+        })
+        .catch(err => {
+            alert("ไม่สามารถเข้าถึงกล้องได้: " + err.message); // แจ้งเตือนเมื่อไม่สามารถใช้กล้องได้
+        });
+}
+
+// ฟังก์ชันถ่ายรูป
+function capturePhoto() {
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height); // จับภาพจากกล้องใส่ canvas
+    const imageDataUrl = canvas.toDataURL('image/png'); // แปลงภาพเป็น Base64
+    photo.src = imageDataUrl; // ตั้งค่า src ให้กับ image element
+    photo.style.display = 'block'; // แสดงรูปที่ถ่าย
+    return imageDataUrl; // คืนค่ารูปที่ถ่าย
+}
 
 // อัพเดต iframe ของแผนที่ด้วยตำแหน่งของผู้ใช้
 function updateMap(position) {
@@ -49,8 +75,7 @@ function stopTracking() {
 
 // ฟังก์ชันถ่ายรูปและบันทึกข้อมูล
 function capturePhotoAndSave(action) {
-    // ถ่ายรูปโดยใช้ camera API (e.g., MediaDevices.getUserMedia)
-    // แสดงภาพที่ถ่ายและขอให้ผู้ใช้ยืนยัน
+    const photoData = capturePhoto(); // ถ่ายรูปและเก็บรูปที่ถ่าย
 
     // เริ่มต้นการติดตามตำแหน่งผู้ใช้
     startTracking();
@@ -61,6 +86,7 @@ function capturePhotoAndSave(action) {
         timestamp: new Date().toISOString(), // เวลาที่บันทึก
         location: userLocation, // ตำแหน่งที่ได้จาก GPS
         inCompany: checkIfInCompany(userLocation), // ตรวจสอบว่าผู้ใช้ในพื้นที่บริษัทหรือไม่
+        photo: photoData // บันทึกรูปที่ถ่าย
     };
 
     // เรียก API หรือ Google Apps Script เพื่อบันทึกข้อมูล
@@ -71,10 +97,10 @@ function capturePhotoAndSave(action) {
 function checkIfInCompany(location) {
     const companyBounds = {
         // กำหนดขอบเขตของบริษัท (ตัวอย่าง)
-        north: 15.2360877,
-        south: 15.2360880,
-        east: 104.8472608,
-        west: 104.8472611
+        north: 13.7593,
+        south: 13.7563,
+        east: 100.5048,
+        west: 100.5018
     };
 
     // ตรวจสอบว่าตำแหน่งอยู่ในขอบเขตที่กำหนด
@@ -101,3 +127,6 @@ document.getElementById("clockInBtn").addEventListener("click", () => {
 document.getElementById("clockOutBtn").addEventListener("click", () => {
     capturePhotoAndSave("Clock Out");
 });
+
+// เรียกฟังก์ชันเริ่มต้นกล้องเมื่อเริ่มโหลดหน้า
+window.onload = startCamera;

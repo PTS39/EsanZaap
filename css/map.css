@@ -18,6 +18,13 @@ button {
     cursor: pointer; /* ทำให้เป็นรูปมือเมื่อชี้ที่ปุ่ม */
 }
 
+#video {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto; /* จัดให้อยู่ตรงกลาง */
+    border: 1px solid #ccc;
+}
+
 #map {
     margin-top: 20px;
 }
