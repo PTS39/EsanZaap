@@ -1,76 +1,37 @@
-/* สไตล์สำหรับกล้อง */
-#cameraContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    margin: 20px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#video {
-    width: 100%;
-    max-width: 600px; /* ขนาดสูงสุดของกล้อง */
-    height: auto;
-    border: 1px solid #ccc;
-    background: #000;
-}
-
-#canvas {
-    display: none; /* ซ่อน canvas */
-}
-
-/* สไตล์สำหรับรูปถ่าย */
-#photo {
-    display: none; /* ซ่อนรูปถ่ายเมื่อเริ่มต้น */
-    max-width: 100%; /* รูปถ่ายจะไม่เกินขนาดกล้อง */
-    max-height: 400px; /* ปรับความสูงของรูปถ่าย */
-    width: auto; /* ความกว้างของรูปถ่ายจะปรับตามสัดส่วน */
-    border: 1px solid #ccc;
-    background: #f0f0f0;
-    object-fit: cover; /* ทำให้รูปถ่ายพอดีกับกรอบ */
-}
-
-/* ซ่อนปุ่มที่ไม่ต้องการแสดง */
-.hidden {
-    display: none;
-}
-
-/* สไตล์สำหรับแผนที่ */
-#mapContainer {
-    display: none;
+body {
+    font-family: Arial, sans-serif;
     text-align: center;
-    margin: 20px;
+    padding: 20px;
 }
 
-#map {
-    width: 100%;
-    max-width: 600px; /* ขนาดสูงสุดของแผนที่ */
-    height: 400px; /* ปรับความสูงของแผนที่ */
-    border: 1px solid #ccc;
-}
-
-/* ปุ่มเข้างานและออกงาน */
 button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
 }
 
-button:hover {
-    background-color: #0056b3;
+.hidden {
+    display: none;
 }
 
-/* สไตล์สำหรับปุ่มซ่อนกล้อง */
-#cameraContainer.hidden {
-    display: none; /* ซ่อนกล้องเมื่อไม่ต้องการ */
+#video {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
 }
 
-/* สไตล์สำหรับปุ่มซ่อนแผนที่ */
-#mapContainer.hidden {
-    display: none; /* ซ่อนแผนที่เมื่อไม่ต้องการ */
+#map {
+    margin-top: 20px;
+}
+
+.camera-controls, .map-controls {
+    margin-top: 10px;
 }
