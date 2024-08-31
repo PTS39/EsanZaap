@@ -18,7 +18,6 @@ function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
             video.srcObject = stream;
-            video.style.display = 'block'; // แสดงกล้อง
         })
         .catch(err => {
             alert("ไม่สามารถเข้าถึงกล้องได้: " + err.message);
@@ -28,12 +27,10 @@ function startCamera() {
 // ฟังก์ชันปิดกล้อง
 function stopCamera() {
     const stream = video.srcObject;
-    if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-        video.srcObject = null;
-    }
-    video.style.display = 'none'; // ซ่อนกล้อง
+    const tracks = stream.getTracks();
+
+    tracks.forEach(track => track.stop());
+    video.srcObject = null;
 }
 
 // ฟังก์ชันถ่ายรูป
@@ -44,7 +41,7 @@ function capturePhoto() {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     capturedImage = canvas.toDataURL('image/png');
     photo.src = capturedImage;
-    photo.style.display = 'block'; // แสดงรูปถ่าย
+    photo.style.display = 'block';
     video.style.display = 'none'; // ซ่อนกล้อง
     canvas.style.display = 'none'; // ซ่อน canvas
     captureBtn.classList.add('hidden');
@@ -123,18 +120,12 @@ function saveData(data) {
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
 }
 
-// ฟังก์ชันสำหรับการจัดการการคลิกปุ่มเข้างานและออกงาน
+// จัดการการคลิกปุ่มเข้างานหรือออกงาน
 function handleClock(action) {
     // ซ่อนปุ่มเข้างานและออกงาน
     clockInBtn.classList.add('hidden');
     clockOutBtn.classList.add('hidden');
-
-    // เคลียร์ค่าของรูปและกล้อง
-    photo.src = '';
-    photo.style.display = 'none';
-    canvas.style.display = 'block';
     
-    // แสดงกล้อง
     cameraContainer.classList.remove('hidden');
     mapContainer.classList.add('hidden');
     startCamera();
