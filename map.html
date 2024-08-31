@@ -2,37 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบเข้างาน-ออกงาน</title>
     <link rel="stylesheet" href="./css/map.css">
 </head>
 <body>
-
-<h2>ระบบเข้างาน-ออกงาน</h2>
-<button id="clockInBtn">เข้างาน</button>
-<button id="clockOutBtn">ออกงาน</button>
-
-<div id="cameraContainer" class="hidden">
-    <video id="video" autoplay></video>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <img id="photo" alt="Captured Photo" style="display: none;">
-    <div class="camera-controls">
+    <div id="cameraContainer">
+        <!-- กล้อง -->
+        <video id="video" autoplay></video>
+        <!-- Canvas สำหรับการถ่ายรูป -->
+        <canvas id="canvas"></canvas>
+        <!-- รูปที่ถ่าย -->
+        <img id="photo" alt="Captured Photo">
+        <!-- ปุ่มต่างๆ -->
         <button id="captureBtn">ถ่ายรูป</button>
         <button id="retakeBtn" class="hidden">ถ่ายรูปใหม่</button>
         <button id="savePhotoBtn" class="hidden">บันทึกรูป</button>
         <button id="cancelCameraBtn">ยกเลิก</button>
     </div>
-</div>
-
-<div id="mapContainer" class="hidden">
-    <iframe id="map" src="" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    <div class="map-controls">
+    
+    <div id="mapContainer">
+        <!-- แผนที่ -->
+        <iframe id="map" src=""></iframe>
+        <!-- ปุ่มบันทึกเวลาและยกเลิก -->
         <button id="saveTimeBtn">บันทึกเวลา</button>
         <button id="cancelMapBtn">ยกเลิก</button>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <!-- ปุ่มเข้างานและออกงาน -->
+    <button id="clockInBtn">เข้างาน</button>
+    <button id="clockOutBtn">ออกงาน</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
