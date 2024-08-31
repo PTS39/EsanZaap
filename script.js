@@ -1,0 +1,103 @@
+let userLocation, watchId; // ประกาศตัวแปรตำแหน่งผู้ใช้ และตัวแปรสำหรับการติดตามตำแหน่ง
+
+// อัพเดต iframe ของแผนที่ด้วยตำแหน่งของผู้ใช้
+function updateMap(position) {
+    const { latitude, longitude, accuracy, speed } = position.coords; // ดึงข้อมูลตำแหน่งจาก GPS
+    userLocation = { lat: latitude, lng: longitude }; // บันทึกตำแหน่งปัจจุบันของผู้ใช้
+
+    // ตรวจสอบว่าตำแหน่งเป็นของปลอมหรือไม่ (ตรวจจับ Mock Location)
+    if (position.mocked || accuracy > 50 || speed === 0) {
+        alert("พบความผิดปกติในการใช้งานตำแหน่ง โปรดใช้ GPS จริงเท่านั้น"); // แจ้งเตือนหากพบตำแหน่งปลอม
+        stopTracking(); // หยุดติดตามตำแหน่ง
+        return;
+    }
+
+    // อัพเดต src ของ iframe เพื่อแสดงตำแหน่งบนแผนที่ Google Maps
+    const mapFrame = document.getElementById('map');
+    mapFrame.src = `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+}
+
+// ฟังก์ชันจัดการข้อผิดพลาดเมื่อไม่สามารถดึงตำแหน่งได้
+function handleError(error) {
+    alert(`เกิดข้อผิดพลาด: ${error.message}`); // แสดงข้อความข้อผิดพลาด
+}
+
+// เริ่มต้นการติดตามตำแหน่งของผู้ใช้
+function startTracking() {
+    if (navigator.geolocation) {
+        watchId = navigator.geolocation.watchPosition(
+            updateMap,
+            handleError,
+            {
+                enableHighAccuracy: true, // บังคับให้ใช้ GPS ที่มีความแม่นยำสูง
+                maximumAge: 0, // ไม่ใช้ตำแหน่งที่ถูกแคชไว้
+                timeout: 10000 // กำหนดเวลารอ 10 วินาที
+            }
+        );
+    } else {
+        alert("เบราว์เซอร์ของคุณไม่รองรับการดึงตำแหน่ง"); // แจ้งเตือนถ้าเบราว์เซอร์ไม่รองรับ
+    }
+}
+
+// หยุดการติดตามตำแหน่งของผู้ใช้
+function stopTracking() {
+    if (watchId) {
+        navigator.geolocation.clearWatch(watchId); // หยุดการติดตามตำแหน่ง
+        watchId = null;
+    }
+}
+
+// ฟังก์ชันถ่ายรูปและบันทึกข้อมูล
+function capturePhotoAndSave(action) {
+    // ถ่ายรูปโดยใช้ camera API (e.g., MediaDevices.getUserMedia)
+    // แสดงภาพที่ถ่ายและขอให้ผู้ใช้ยืนยัน
+
+    // เริ่มต้นการติดตามตำแหน่งผู้ใช้
+    startTracking();
+
+    // หลังจากได้ตำแหน่งแล้ว ให้บันทึกข้อมูลไปยัง Google Sheets หรือฐานข้อมูล
+    const data = {
+        action: action, // บันทึกการเข้างานหรือออกงาน
+        timestamp: new Date().toISOString(), // เวลาที่บันทึก
+        location: userLocation, // ตำแหน่งที่ได้จาก GPS
+        inCompany: checkIfInCompany(userLocation), // ตรวจสอบว่าผู้ใช้ในพื้นที่บริษัทหรือไม่
+    };
+
+    // เรียก API หรือ Google Apps Script เพื่อบันทึกข้อมูล
+    saveData(data);
+}
+
+// ฟังก์ชันตรวจสอบว่าผู้ใช้อยู่ในพื้นที่บริษัทหรือไม่
+function checkIfInCompany(location) {
+    const companyBounds = {
+        // กำหนดขอบเขตของบริษัท (ตัวอย่าง)
+        north: 15.2360877,
+        south: 15.2360880,
+        east: 104.8472608,
+        west: 104.8472611
+    };
+
+    // ตรวจสอบว่าตำแหน่งอยู่ในขอบเขตที่กำหนด
+    return (
+        location.lat <= companyBounds.north &&
+        location.lat >= companyBounds.south &&
+        location.lng <= companyBounds.east &&
+        location.lng >= companyBounds.west
+    );
+}
+
+// ฟังก์ชันบันทึกข้อมูล (เรียกใช้ API หรือ Google Apps Script)
+function saveData(data) {
+    console.log("Saving data:", data); // ล็อกข้อมูลที่บันทึก
+    // ส่วนนี้คุณสามารถส่งข้อมูลไปยัง backend หรือ Google Apps Script
+}
+
+// ตั้งค่า Event Listener ให้ปุ่มเข้างาน
+document.getElementById("clockInBtn").addEventListener("click", () => {
+    capturePhotoAndSave("Clock In");
+});
+
+// ตั้งค่า Event Listener ให้ปุ่มออกงาน
+document.getElementById("clockOutBtn").addEventListener("click", () => {
+    capturePhotoAndSave("Clock Out");
+});
