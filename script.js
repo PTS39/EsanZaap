@@ -10,6 +10,8 @@ const savePhotoBtn = document.getElementById('savePhotoBtn');
 const cancelCameraBtn = document.getElementById('cancelCameraBtn');
 const saveTimeBtn = document.getElementById('saveTimeBtn');
 const cancelMapBtn = document.getElementById('cancelMapBtn');
+const clockInBtn = document.getElementById('clockInBtn');
+const clockOutBtn = document.getElementById('clockOutBtn');
 
 // ฟังก์ชันเริ่มต้นกล้อง
 function startCamera() {
@@ -40,8 +42,8 @@ function capturePhoto() {
     capturedImage = canvas.toDataURL('image/png');
     photo.src = capturedImage;
     photo.style.display = 'block';
-
-    // ซ่อนปุ่มถ่ายรูป และแสดงปุ่มถ่ายรูปใหม่และบันทึกรูป
+    video.style.display = 'none'; // ซ่อนกล้อง
+    canvas.style.display = 'none'; // ซ่อน canvas
     captureBtn.classList.add('hidden');
     retakeBtn.classList.remove('hidden');
     savePhotoBtn.classList.remove('hidden');
@@ -112,11 +114,18 @@ function checkIfInCompany(location) {
 
 // ฟังก์ชันบันทึกข้อมูล
 function saveData(data) {
+    // จำลองการบันทึกข้อมูล
     console.log("Saving data:", data);
+    // แจ้งเตือนการบันทึกสำเร็จ
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
 }
 
 // จัดการการคลิกปุ่มเข้างานหรือออกงาน
 function handleClock(action) {
+    // ซ่อนปุ่มเข้างานและออกงาน
+    clockInBtn.classList.add('hidden');
+    clockOutBtn.classList.add('hidden');
+    
     cameraContainer.classList.remove('hidden');
     mapContainer.classList.add('hidden');
     startCamera();
@@ -131,8 +140,9 @@ function handleClock(action) {
 
     // กดถ่ายรูปใหม่
     retakeBtn.addEventListener('click', () => {
-        // กลับไปถ่ายรูปใหม่
         photo.style.display = 'none';
+        video.style.display = 'block'; // แสดงกล้อง
+        canvas.style.display = 'block'; // แสดง canvas
         captureBtn.classList.remove('hidden');
         retakeBtn.classList.add('hidden');
         savePhotoBtn.classList.add('hidden');
@@ -150,6 +160,8 @@ function handleClock(action) {
     cancelCameraBtn.addEventListener('click', () => {
         stopCamera();
         cameraContainer.classList.add('hidden');
+        clockInBtn.classList.remove('hidden');
+        clockOutBtn.classList.remove('hidden');
     });
 
     // กดบันทึกเวลา
@@ -169,6 +181,8 @@ function handleClock(action) {
     cancelMapBtn.addEventListener('click', () => {
         stopTracking();
         mapContainer.classList.add('hidden');
+        clockInBtn.classList.remove('hidden');
+        clockOutBtn.classList.remove('hidden');
     });
 }
 
