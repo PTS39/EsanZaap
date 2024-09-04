@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsanZaap</title>
+    <link rel="stylesheet" href="./css/menu.css">
+    <script src="https://kit.fontawesome.com/a891fb6ad0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="header--menu">
+            <div class="burger--icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="search--box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="menu--icons">
+                <i class="fa-solid fa-bowl-food"></i>
+                <div class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="cover">
+        <div class="cover-overlay">
+            <h1>Esan Zaap</h1>
+            <span class="slogan">Lorem ipsum, dolor sit amet consectetur!</span>
+        </div>
+    </section>
+
+    <main>
+        <h2 class="section-heading">Food Menu</h2>
+        <div class="menu--list">
+            <div class="menu--item" data-filter="all">
+                <img src="./image/food.webp" alt="All Food">
+                <h5>All Food</h5>
+            </div>
+            <div class="menu--item" data-filter="Somtam">
+                <img src="./image/food1.webp" alt="Somtam">
+                <h5>Somtam</h5>
+            </div>
+            <div class="menu--item" data-filter="Tom Yum">
+                <img src="./image/food2.webp" alt="Tom Yum">
+                <h5>Tom Yum</h5>
+            </div>
+            <div class="menu--item" data-filter="Larb">
+                <img src="./image/food3.webp" alt="Larb">
+                <h5>Larb</h5>
+            </div>
+            <div class="menu--item" data-filter="Yang">
+                <img src="./image/food4.webp" alt="Yang">
+                <h5>Yang</h5>
+            </div>
+            <div class="menu--item" data-filter="Cold Water">
+                <img src="./image/food5.webp" alt="Cold Water">
+                <h5>Cold Water</h5>
+            </div>
+            <div class="menu--item" data-filter="Coffee">
+                <img src="./image/food6.webp" alt="Coffee">
+                <h5>Coffee</h5>
+            </div>
+        </div>
+        
+        <!-- card item section -->
+        <h2 class="section-heading">Menu Item</h2>
+        <div class="card--list">
+            <div class="card" data-category="Somtam">
+                <img src="./image/food1.webp" alt="Som Tam">
+                <h4 class="card--title">Som Tam</h4>
+                <div class="card--price">
+                    <div class="price">$60.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+            <div class="card" data-category="Tom Yum">
+                <img src="./image/food2.webp" alt="Tom Yum">
+                <h4 class="card--title">Tom Yum</h4>
+                <div class="card--price">
+                    <div class="price">$150.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+            <div class="card" data-category="Larb">
+                <img src="./image/food3.webp" alt="Larb">
+                <h4 class="card--title">Larb</h4>
+                <div class="card--price">
+                    <div class="price">$80.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+            <div class="card" data-category="Yang">
+                <img src="./image/food4.webp" alt="Yang">
+                <h4 class="card--title">Yang</h4>
+                <div class="card--price">
+                    <div class="price">$120.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+            <div class="card" data-category="Cold Water">
+                <img src="./image/food5.webp" alt="Cold Water">
+                <h4 class="card--title">Cold Water</h4>
+                <div class="card--price">
+                    <div class="price">$55.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+            <div class="card" data-category="Coffee">
+                <img src="./image/food6.webp" alt="Coffee">
+                <h4 class="card--title">Coffee</h4>
+                <div class="card--price">
+                    <div class="price">$65.00</div>
+                    <i class="fa-solid fa-plus add-to-card"></i>
+                </div>
+            </div>
+        </div>
+         <!-- card sidebar section -->
+         <div class="sidebar" id="sidebar">
+                <div class="sidebar-close">
+                    <i class="fa-solid fa-close"></i>
+                </div>
+                <div class="card-menu">
+                    <h3>My Cart</h3>
+                    
+                    <div class="card-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="sidebar--footer">
+                    <div class="total--amount">
+                        <h5>Total</h5>
+                        <div class="card-total">$0.00</div>
+                    </div>
+                    <button class="checkout-btn">Checkout</button>
+                </div>            
+         </div> 
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

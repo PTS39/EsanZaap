@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-color: #99a98f;
+    --decent-color: #d6e8db;
+    --accent-color: #fff;
+    --secondary-color: rgb(9,189,9);
+    --font-family: 'Poppins', sans-serif; /* แก้ไข sans-seri เป็น sans-serif */
+    --text-color: gray;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background: #fff;
+    padding: 0 9%;
+}
+
+.header{
+    padding: 1rem 0;
+}
+
+.header--menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.burger--icon i {
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search--box {
+    background: var(--decent-color);
+    border-radius: 10px;
+    flex: 1;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.search--box i {
+    color: var(--primary-color);
+}
+
+.search--box input {
+    background: transparent;
+    padding: 10px;
+    width: 80%;
+}
+
+.menu--icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu--icons i {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--decent-color);
+}
+
+.fa-cart-shopping {
+    background: transparent !important;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-icon span {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+}
+
+/* cover section */
+
+.cover {
+    background-image: url(./image/food.webp);
+    background-size: cover;
+    height: 25vh;
+    background-position: center;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.cover-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+/* section heading */
+
+.section-heading {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin: 1rem 0 10px 0;
+    color: var(--text-color);
+}
+
+/* menu list */
+
+.menu--list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.menu--item {
+    width: 114px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid var(--decent-color);
+    padding: 10px 13px;
+    border-radius: 10px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.menu--item img {
+    width: 100%;
+}
+
+/* card list */
+
+.card--list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.card {
+    width: 190px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1rem;
+    border: 2px solid var(--decent-color);
+    border-radius: 10px;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card--title {
+    color: var(--text-color);
+}
+
+.card--price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: 600;
+}
+
+.add-to-card {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* sidebar */
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 400px;
+    background-color: var(--accent-color);
+    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem 1rem;
+    transition: right 0.3s ease-in-out;
+    transform: translateX(100%);
+    z-index: 999;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.sidebar-close {
+    text-align: right;
+    margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+.sidebar-close i {
+    color: var(--text-color);
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.card-items {
+    overflow-y: auto;
+    height: 620px;
+    padding-right: 10px;
+    margin-top: 2rem;
+    border: 2px solid var(--decent-color);
+    border-radius: 5px;
+
+}
+
+.card-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.card-item img {
+    width: 50px;
+}
+
+.card-item h4 {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.card-item .price-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px; /* เพิ่มพื้นที่ระหว่างชื่อสินค้าและราคาบรรทัดที่สอง */
+}
+
+.card-item .price-details span:first-child {
+    margin-bottom: 3px; /* เพิ่มพื้นที่ระหว่างบรรทัดแรกและบรรทัดที่สอง */
+}
+
+
+/* sidebar footer */
+
+.sidebar--footer {
+    /* position: absolute; */
+    margin-top: 5px;
+    bottom: 10px;
+    width: 100%;
+}
+
+.total--amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid var(--decent-color);
+    border-radius: 5px;
+    padding: 15px 10px;
+}
+
+.card-total {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 2rem;
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
